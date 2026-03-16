@@ -80,7 +80,7 @@ fetch('birmarket_products_with_links.xlsx')
 .then(data => {
 const workbook = XLSX.read(data);
 const sheet = workbook.Sheets[workbook.SheetNames[0]];
-const products = XLSX.utils.sheet_to_json(sheet);
+const products = XLSX.utils.sheet_to_json(sheet, {raw:false});
 
 const container = document.querySelector(".grid");
 
@@ -89,8 +89,8 @@ const card = document.createElement("div");
 card.className = "card";
 
 card.innerHTML = `
-<img src="https://source.unsplash.com/400x300/?${encodeURIComponent(p["Product Name"])}" />
-<h3>${p["Product Name"]}</h3>
+<img src="https://source.unsplash.com/600x400/?electronics,${encodeURIComponent(p["Product Name"])}" />
+<h3>${decodeURIComponent(escape(p["Product Name"]))}</h3>
 <div class="price">${p.Price} AZN</div>
 <a class="btn" href="https://wa.me/994103750581?text=${encodeURIComponent(p["Product Name"])}">WhatsApp</a>
 `;
