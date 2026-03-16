@@ -75,28 +75,36 @@ h1{color:gold;margin:10px 0}
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
 <script>
-fetch('birmarket_products_with_links.xlsx')
-.then(res => res.arrayBuffer())
-.then(data => {
-const workbook = XLSX.read(data);
-const sheet = workbook.Sheets[workbook.SheetNames[0]];
-const products = XLSX.utils.sheet_to_json(sheet);
+fetch('1453.csv')
+.then(res => res.text())
+.then(text => {
 
+const rows = text.split('\n').slice(1);
 const container = document.querySelector(".grid");
 
-products.forEach(p => {
+rows.forEach(row => {
+
+const cols = row.split(',');
+const id = cols[0];
+const price = cols[1];
+const url = cols[2];
+
+if(!id) return;
+
 const card = document.createElement("div");
 card.className = "card";
 
 card.innerHTML = `
-<img src="https://source.unsplash.com/600x400/?electronics,${encodeURIComponent(p["Product Name"])}" />
-<h3>${p["Product Name"]}</h3>
-<div class="price">${p.Price} AZN</div>
-<a class="btn" href="https://wa.me/994103750581?text=${encodeURIComponent(p["Product Name"])}">WhatsApp</a>
+<img src="https://strgimgr.b-cdn.net/img/product/280/${id}.jpeg" />
+<h3>Product ${id}</h3>
+<div class="price">${price} AZN</div>
+<a class="btn" href="https://wa.me/994103750581">WhatsApp</a>
 `;
 
 container.appendChild(card);
+
 });
+
 });
 </script>
 
