@@ -96,10 +96,10 @@ const card = document.createElement("div");
 card.className = "card";
 
 card.innerHTML = `
-<img src="https://strgimgr.b-cdn.net/img/product/280/${id}.jpeg" />
-<h3>Product ${id}</h3>
+<img src="https://strgimgr.b-cdn.net/img/product/280/${id}.jpeg" onerror="this.src='https://via.placeholder.com/300x200?text=Product';" />
+<h3>Məhsul ID: ${id}</h3>
 <div class="price">${price} AZN</div>
-<a class="btn" href="${url}">WhatsApp</a>
+<a class="btn" href="${url}" target="_blank">Bax</a>
 `;
 
 container.appendChild(card);
