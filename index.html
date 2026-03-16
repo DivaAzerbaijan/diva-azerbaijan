@@ -72,6 +72,33 @@ h1{color:gold;margin:10px 0}
 </div>
 
 <a class="whatsapp" href="https://wa.me/994103750581">WhatsApp</a>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<script>
+fetch('birmarket_products_with_links.xlsx')
+.then(res => res.arrayBuffer())
+.then(data => {
+const workbook = XLSX.read(data);
+const sheet = workbook.Sheets[workbook.SheetNames[0]];
+const products = XLSX.utils.sheet_to_json(sheet);
+
+const container = document.querySelector(".grid");
+
+products.forEach(p => {
+const card = document.createElement("div");
+card.className = "card";
+
+card.innerHTML = `
+<img src="${p.image}" />
+<h3>${p.name}</h3>
+<div class="price">${p.price} AZN</div>
+<a class="btn" href="https://wa.me/994103750581">WhatsApp</a>
+`;
+
+container.appendChild(card);
+});
+});
+</script>
 
 </body>
 </html>
