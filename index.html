@@ -84,7 +84,8 @@ const container = document.querySelector(".grid");
 
 rows.forEach(row => {
 
-const cols = row.split(',');
+const cols = row.split(';');
+
 const id = cols[0];
 const price = cols[1];
 const url = cols[2];
@@ -98,7 +99,7 @@ card.innerHTML = `
 <img src="https://strgimgr.b-cdn.net/img/product/280/${id}.jpeg" />
 <h3>Product ${id}</h3>
 <div class="price">${price} AZN</div>
-<a class="btn" href="https://wa.me/994103750581">WhatsApp</a>
+<a class="btn" href="${url}">WhatsApp</a>
 `;
 
 container.appendChild(card);
