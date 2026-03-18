@@ -75,37 +75,33 @@ h1{color:gold;margin:10px 0}
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
 <script>
-fetch('1453.csv')
-.then(res => res.text())
-.then(text => {
+fetch("KG Store [All] - (MPE).xlsx")
+.then(res => res.arrayBuffer())
+.then(data => {
+    const workbook = XLSX.read(data);
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const products = XLSX.utils.sheet_to_json(sheet);
 
-const rows = text.split('\n').slice(1);
-const container = document.querySelector(".grid");
+    const container = document.querySelector(".grid");
 
-rows.forEach(row => {
+    products.forEach(p => {
 
-const cols = row.split(';');
+        const name = p["Product Name"] || "No name";
+        const price = p["Price"] || "";
+        const link = p["product_url"] || "#";
 
-const id = cols[0];
-const price = cols[1];
-const url = cols[2];
+        const card = document.createElement("div");
+        card.className = "card";
 
-if(!id) return;
+        card.innerHTML = `
+            <img src="https://source.unsplash.com/300x200/?product" />
+            <h3>${name}</h3>
+            <div class="price">${price} AZN</div>
+            <a class="btn" href="${link}" target="_blank">BAX</a>
+        `;
 
-const card = document.createElement("div");
-card.className = "card";
-
-card.innerHTML = `
-<img src="https://strgimgr.b-cdn.net/img/product/280/${id}.jpeg" onerror="this.src='https://via.placeholder.com/300x200?text=Product';" />
-<h3>Məhsul ID: ${id}</h3>
-<div class="price">${price} AZN</div>
-<a class="btn" href="${url}" target="_blank">Bax</a>
-`;
-
-container.appendChild(card);
-
-});
-
+        container.appendChild(card);
+    });
 });
 </script>
 
