@@ -36,15 +36,7 @@ h1{color:gold;margin:10px 0}
   <div class="grid" id="products"></div>
 </div>
 
-<div class="card">
-  <img src="https://source.unsplash.com/300x300/?${encodeURIComponent(cols[1])}" alt="">
-  <h3>${cols[1]}</h3>
-  <p class="price">${cols[2]} AZN</p>
-  <p>${cols[3]}</p>
-  <a href="https://wa.me/994501234567?text=${encodeURIComponent(cols[1])}" target="_blank" class="btn">
-    WhatsApp
-  </a>
-</div>
+
 
 </div>
 
@@ -56,25 +48,7 @@ h1{color:gold;margin:10px 0}
 <h3>Kişi ətri</h3>
 <div class="price">80 AZN</div>
 <a class="btn" href="https://wa.me/994103750581?text=Salam%20bu%20etir%20haqqinda%20melumat%20isteyirem">WhatsApp</a>
-</div>
 
-<div class="card">
-<img src="https://via.placeholder.com/300">
-<h3>Qadın ətri</h3>
-<div class="price">90 AZN</div>
-<a class="btn" href="https://wa.me/994103750581?text=Salam%20bu%20etir%20haqqinda%20melumat%20isteyirem">WhatsApp</a>
-</div>
-
-</div>
-
-</div>
-
-<a class="whatsapp" href="https://wa.me/994103750581">WhatsApp</a>
-<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-
-<script>
-fetch('stok.csv')
-  .then(res => res.text())
   .then(data => {
     const rows = data.split('\n').slice(1);
     let html = '';
@@ -89,14 +63,20 @@ fetch('stok.csv')
       const price = cols[2];
       const category = cols[3];
 
-      html += `
-        <div class="card">
-          <h3>${name || 'No name'}</h3>
-          <p class="price">${price || ''} AZN</p>
-          <p>${category || ''}</p>
-          <a href="#" class="btn">WhatsApp</a>
-        </div>
-      `;
+     html += `
+  <div class="card">
+    <img 
+      src="https://source.unsplash.com/300x300/?${encodeURIComponent(name)}"
+      onerror="this.src='https://via.placeholder.com/300?text=No+Image'"
+    >
+    <h3>${name || 'No name'}</h3>
+    <p class="price">${price || ''} AZN</p>
+    <p>${category || ''}</p>
+    <a href="https://wa.me/994501234567?text=${encodeURIComponent(name)}" target="_blank" class="btn">
+      WhatsApp
+    </a>
+  </div>
+`;
     });
 
     document.getElementById('products').innerHTML = html;
