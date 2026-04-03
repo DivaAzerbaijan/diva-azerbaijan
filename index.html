@@ -1,77 +1,77 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diva Azerbaijan</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diva Azerbaijan</title>
 
-  <style>
-    body {
-      margin:0;
-      font-family:Arial;
-      background:#0b0b0b;
-      color:white;
-    }
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0b0b0b;
+  color:white;
+}
 
-    header {
-      text-align:center;
-      padding:30px;
-      border-bottom:2px solid gold;
-    }
+header{
+  text-align:center;
+  padding:30px;
+  border-bottom:2px solid gold;
+}
 
-    h1 {
-      color:gold;
-      margin:10px 0;
-    }
+h1{
+  color:gold;
+}
 
-    .container {
-      max-width:1100px;
-      margin:auto;
-      padding:20px;
-    }
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
 
-    .grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:20px;
-    }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
 
-    .card {
-      background:#111;
-      border-radius:10px;
-      padding:15px;
-      text-align:center;
-      border:1px solid #333;
-    }
+.card{
+  background:#111;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+  border:1px solid #333;
+}
 
-    .card img {
-      width:100%;
-      border-radius:8px;
-    }
+.card img{
+  width:100%;
+  border-radius:8px;
+}
 
-    .price {
-      color:gold;
-      font-weight:bold;
-      margin:10px 0;
-    }
+.price{
+  color:gold;
+  font-weight:bold;
+}
 
-    .btn {
-      background:gold;
-      color:black;
-      padding:10px 15px;
-      text-decoration:none;
-      border-radius:6px;
-      font-weight:bold;
-      display:inline-block;
-    }
+.btn{
+  background:gold;
+  color:black;
+  padding:10px 15px;
+  text-decoration:none;
+  border-radius:6px;
+  display:inline-block;
+  margin-top:10px;
+  font-weight:bold;
+}
 
-    .section-title {
-      color:gold;
-      margin-top:40px;
-      border-bottom:1px solid gold;
-      padding-bottom:10px;
-    }
-  </style>
+.section-title{
+  color:gold;
+  margin-top:40px;
+  border-bottom:1px solid gold;
+  padding-bottom:10px;
+}
+</style>
+
 </head>
 
 <body>
@@ -90,13 +90,14 @@
 fetch('stok.csv')
   .then(res => res.text())
   .then(data => {
+
     const rows = data.split('\n').slice(1);
     let html = '';
 
     rows.forEach(row => {
-      if (!row.trim()) return;
+      if(!row.trim()) return;
 
-      const cols = row.split(/[;,]/);
+      const cols = row.split(/[,;]/);
 
       const name = cols[1];
       const price = cols[2];
@@ -104,14 +105,13 @@ fetch('stok.csv')
 
       html += `
         <div class="card">
-          <img 
-            src="https://source.unsplash.com/300x300/?${encodeURIComponent(name)}"
-            onerror="this.src='https://via.placeholder.com/300?text=No+Image'"
-          >
+          <img src="https://via.placeholder.com/300x220?text=${encodeURIComponent(name)}">
           <h3>${name || 'No name'}</h3>
           <p class="price">${price || ''} AZN</p>
           <p>${category || ''}</p>
-          <a href="https://wa.me/994103750581?text=${encodeURIComponent(name)}" target="_blank" class="btn">WhatsApp</a>
+          <a href="https://wa.me/994103750581?text=${encodeURIComponent('Salam, bu məhsul maraqlıdır: ' + name)}" target="_blank" class="btn">
+            WhatsApp
+          </a>
         </div>
       `;
     });
